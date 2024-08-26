@@ -7,6 +7,10 @@
 # Running the Project
 Download the files from github & change the VideocCapture resolution to match your webcam/camera.
 # References
-https://www.youtube.com/@murtazasworkshop 
-https://opencv.org/
-https://huggingface.co/docs/transformers/en/model_doc/opt
+
+[1. Murtaza's Workshop YouTube Channel](https://www.youtube.com/@murtazasworkshop)
+
+[2. OpenCV Official Site](https://opencv.org/)
+
+[3. OPT Model Documentation](https://huggingface.co/docs/transformers/en/model_doc/opt)
+
