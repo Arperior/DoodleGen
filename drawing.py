@@ -87,5 +87,6 @@ while(True):
     cv2.imshow("Virtual canvas",imgCanvas)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
+        cv2.imwrite("drawing.png", imgCanvas)
         break
 
