@@ -6,3 +6,7 @@
 	pip install torch torchvision torchaudio
 # Running the Project
 Download the files from github & change the VideocCapture resolution to match your webcam/camera.
+# References
+https://www.youtube.com/@murtazasworkshop 
+https://opencv.org/
+https://huggingface.co/docs/transformers/en/model_doc/opt
