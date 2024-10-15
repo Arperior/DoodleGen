@@ -26,8 +26,17 @@ def main():
 
         time.sleep(5)  
     
-        features = extract_features("drawing.png", theme=custom_theme if theme == "other" else theme)
-        generated_image = generate_image(features, theme=custom_theme if theme == "other" else theme)
+        try:
+            features = extract_features("drawing.png", theme=custom_theme if theme == "other" else theme)
+            generated_image = generate_image(features, theme=custom_theme if theme == "other" else theme)
+
+            if generated_image:  # Check if image generation succeeded
+                st.subheader("Generated Image")
+                st.image(generated_image)
+            else:
+                st.error("An error occurred while generating the image.")
+        except Exception as e:
+            st.error(f"An unexpected error occurred: {e}")
 
         st.subheader("Generated Image")
         st.image(generated_image)
