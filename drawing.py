@@ -88,5 +88,7 @@ while(True):
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         cv2.imwrite("drawing.png", imgCanvas)
+        with open("drawing_finished.txt", "w") as f:
+          f.write("")
         break
 
