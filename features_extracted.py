@@ -4,8 +4,12 @@ import torch
 from diffusers import StableDiffusionPipeline  
 import streamlit as st
 
-with st.secrets.experimental.fetch("api_key") as API_KEY:
-    genai.configure(api_key=API_KEY)
+try:
+    with st.secrets.experimental.fetch("api_key") as API_KEY:
+        genai.configure(api_key=API_KEY)
+except AttributeError:  # Fallback for older Streamlit versions
+    with st.secrets.fetch("api_key") as API_KEY:
+        genai.configure(api_key=API_KEY)
 
 
 def extract_features(image_path,theme='abstract', model_name="gemini-1.5-flash"):
