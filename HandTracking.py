@@ -18,6 +18,7 @@ class handDetector():
             min_tracking_confidence=self.trackcon,
             model_complexity = self.modelComp)
         self.mpDraw = mp.solutions.drawing_utils
+        self.tipIds = [4,8,12,16,20]
 
     def findhands(self,img,draw=True):
         imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
@@ -29,18 +30,48 @@ class handDetector():
         return img
     
     def findpos(self,img,handno=0,draw=True):
-        lmList = []
+        self.lmList = []
         if self.results.multi_hand_landmarks:
             myHand = self.results.multi_hand_landmarks[handno]
             for id,lm in enumerate(myHand.landmark):
                 h,w,c = img.shape
                 cx,cy = int(lm.x*w),int(lm.y*h)
                 #print(id,":",cx,cy)
-                lmList.append([id,cx,cy])
+                self.lmList.append([id,cx,cy])
                 if draw:
                     if id == 0:
                         cv2.circle(img,(cx,cy),15,(255,0,255),cv2.FILLED)
-        return lmList
+        return self.lmList
+    
+    def fingersUp(self):
+        self.fingers = []
+        if len(self.lmList) < max(self.tipIds) + 1:
+            return self.fingers
+        
+        # Thumb
+        if self.lmList[self.tipIds[0]][1] < self.lmList[self.tipIds[0] - 1][1]:
+            self.fingers.append(1)
+        else:
+            self.fingers.append(0)
+
+        # For the other fingers
+        for id in range(1, 5):
+            if self.lmList[self.tipIds[id]][2] < self.lmList[self.tipIds[id] - 2][2]:
+                self.fingers.append(1)
+            else:
+                self.fingers.append(0)
+
+        return self.fingers
+    
+    def fistC(self):
+        clench = False
+        for a in self.fingers:
+            if a == 1:
+                return clench
+        clench = True
+        return clench
+
+
 
 
 def main():
