@@ -2,9 +2,10 @@ import google.generativeai as genai
 from PIL import Image
 import torch
 from diffusers import StableDiffusionPipeline  
+import streamlit as st
 
-API_KEY = "AIzaSyDOis7Mvfm83_ipHtQg8f82gTnQC6jC6Io"
-genai.configure(api_key=API_KEY)
+with st.secrets.experimental.fetch("api_key") as API_KEY:
+    genai.configure(api_key=API_KEY)
 
 
 def extract_features(image_path,theme='abstract', model_name="gemini-1.5-flash"):
